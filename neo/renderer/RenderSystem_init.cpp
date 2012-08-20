@@ -514,7 +514,28 @@ void R_InitOpenGL(void)
 
 	// recheck all the extensions (FIXME: this might be dangerous)
 	R_CheckPortableExtensions();
+#ifdef ID_TARGET_OPENGL
+	// TODO: Identify more OpenGL Specific Extensions Required to use The
+	// OpenGL ES 2.0 code base.
+	
+	if(!glConfig.ARBFragmentProgramAvailable && 
+		!glConfig.ARBVertexProgramAvailable)
+	{
+		if(!glConfig.GLSLAvailable)
+		{
+			common->Printf("No Shader program Extensions Found.\n");
+			// Safely Terminate.
+			glConfig.isInitialized = false;
+		}
+	}
 
+	if(!glConfig.ARBVertexBufferObjectAvailable)
+	{
+			common->Printf("No Vertex Buffer Object Support available.\n");
+			// Safely Terminate.
+			glConfig.isInitialized = false;	
+	}
+#endif
 	// parse our vertex and fragment programs, possibly disably support for
 	// one of the paths if there was an error
 #if !defined(GL_ES_VERSION_2_0)

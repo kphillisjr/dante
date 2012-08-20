@@ -354,7 +354,7 @@ void R_LoadARBProgram(int progIndex)
 {
 	int		ofs;
 	int		err;
-	idStr	fullPath = "gl2progs/";
+	idStr	fullPath = "glprogs/";
 	fullPath += progs[progIndex].name;
 	char	*fileBuffer;
 	char	*buffer;
